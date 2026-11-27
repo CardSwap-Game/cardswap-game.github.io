@@ -4,45 +4,44 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LiLYA STUDIO – Card Swap</title>
-<meta name="description" content="LiLYA STUDIO makes fun mobile games. Card Swap is a card puzzle game for Android.">
+<meta name="description" content="LiLYA STUDIO makes fun mobile games. Card Swap is a funny card puzzle game for Android.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231d4ed8'/%3E%3Cpath d='M50 80C20 58 14 38 28 28C38 21 48 26 50 38C52 26 62 21 72 28C86 38 80 58 50 80Z' fill='%23ff5a5f'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --blue1:#1d4ed8; --blue2:#0ea5e9; --coral:#ff5a5f; --ink:#12223f; --soft:#f3f7ff; }
+  :root { --blue1:#1d4ed8; --blue2:#0ea5e9; --coral:#ff5a5f; --ink:#12223f; --soft:#f3f7ff; --gold:#F6C945; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Fredoka', system-ui, sans-serif; color: var(--ink); background: #fff; line-height: 1.6; }
   a { color: inherit; }
   .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
-  /* top bar */
   header { position: absolute; top: 0; left: 0; right: 0; z-index: 2; }
   header .wrap { display: flex; justify-content: space-between; align-items: center; padding-top: 18px; }
   .brand { color: #fff; font-weight: 700; letter-spacing: 1px; text-decoration: none; font-size: 1.1rem; }
   nav a { color: #fff; text-decoration: none; margin-left: 18px; font-weight: 500; opacity: .9; }
   nav a:hover { opacity: 1; text-decoration: underline; }
 
-  /* hero */
-  .hero { background: linear-gradient(160deg, var(--blue1), var(--blue2)); color: #fff; text-align: center; padding: 130px 20px 90px; }
+  .hero { background: linear-gradient(160deg, var(--blue1), var(--blue2)); color: #fff; text-align: center; padding: 120px 20px 90px; overflow: hidden; }
   .presents { letter-spacing: 6px; text-transform: uppercase; font-size: .85rem; opacity: .85; }
   .logo { font-size: clamp(3rem, 12vw, 6rem); font-weight: 700; line-height: 1; margin-top: 8px; letter-spacing: 2px; }
   .logo .dot { position: relative; display: inline-block; }
   .logo .dot::after { content: ""; position: absolute; width: .16em; height: .16em; background: var(--coral);
     transform: rotate(45deg); top: -.02em; left: 50%; margin-left: -.08em; }
-  .logo-i { font-size: 1em; }
   .studio { font-size: clamp(1.2rem, 4vw, 2rem); font-weight: 600; letter-spacing: 10px; margin-top: 6px; }
-  .tag { margin: 24px auto 0; max-width: 520px; font-size: 1.1rem; opacity: .95; }
+  .tag { margin: 22px auto 0; max-width: 520px; font-size: 1.1rem; opacity: .95; }
 
-  .cards { display: flex; justify-content: center; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
-  .card { width: 64px; height: 88px; background: #fffdf5; border-radius: 10px; color: var(--c);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 1.6rem; line-height: 1.1; box-shadow: 0 8px 18px rgba(0,0,0,.25); }
-  .card small { font-size: 1.4rem; }
-  .card:nth-child(odd) { transform: rotate(-5deg); }
-  .card:nth-child(even) { transform: rotate(5deg) translateY(6px); }
+  .fan { display: flex; justify-content: center; margin-top: 40px; padding-bottom: 10px; }
+  .fan .card { width: clamp(78px, 21vw, 130px); margin: 0 -8px; }
+  .fan .card:nth-child(1) { transform: rotate(-12deg) translateY(10px); }
+  .fan .card:nth-child(2) { transform: rotate(-4deg); }
+  .fan .card:nth-child(3) { transform: rotate(4deg); }
+  .fan .card:nth-child(4) { transform: rotate(12deg) translateY(10px); }
 
-  /* sections */
+  .card { display: block; aspect-ratio: 0.68; filter: drop-shadow(0 4px 6px rgba(0,0,0,.28)); }
+  .card svg { display: block; width: 100%; height: 100%; }
+
   section { padding: 70px 0; }
   h2 { font-size: 2rem; text-align: center; margin-bottom: 8px; }
   .sub { text-align: center; max-width: 560px; margin: 0 auto 36px; opacity: .8; }
@@ -55,31 +54,45 @@
   .btn { display: inline-block; background: var(--coral); color: #fff; text-decoration: none; font-weight: 600;
     padding: 12px 26px; border-radius: 999px; box-shadow: 0 6px 14px rgba(255,90,95,.35); }
   .btn:hover { filter: brightness(1.05); }
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 280px; margin: 0 auto; }
-  .grid span { aspect-ratio: 3/4; background: #fffdf5; border: 2px solid #e6e1d0; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--c); font-size: 1.1rem; }
 
-  .steps { display: grid; gap: 20px; grid-template-columns: repeat(3, 1fr); }
-  .step { background: var(--soft); border-radius: 16px; padding: 24px; text-align: center; }
-  .step b { display: inline-flex; width: 40px; height: 40px; border-radius: 50%; background: var(--blue1);
-    color: #fff; align-items: center; justify-content: center; margin-bottom: 10px; }
+  .board { position: relative; width: 100%; aspect-ratio: 0.6955; }
+  .board .card { position: absolute; width: 22%; border-radius: 7%; }
+  .solved { max-width: 300px; margin: 0 auto; }
 
-  .modes { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); margin-top: 28px; }
-  .mode { border: 2px solid var(--soft); border-radius: 16px; padding: 18px; text-align: center; }
-  .mode h4 { margin-bottom: 4px; }
+  .how { display: grid; gap: 36px; grid-template-columns: 1fr 1fr; align-items: center; }
+  .step { display: flex; gap: 14px; margin-bottom: 18px; }
+  .step b { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--blue1);
+    color: #fff; display: flex; align-items: center; justify-content: center; }
+  .step h4 { line-height: 1.2; margin-bottom: 2px; }
+  .modes { display: grid; gap: 12px; margin-top: 24px; }
+  .mode { border: 2px solid var(--soft); border-radius: 14px; padding: 12px 16px; }
+  .mode h4 { margin-bottom: 2px; }
+  .mode p { font-size: .95rem; opacity: .85; }
 
-  /* footer */
+  .phone { width: 100%; max-width: 330px; margin: 0 auto; background: linear-gradient(170deg, #2a1b6e, #4b2fa0);
+    border: 8px solid #12223f; border-radius: 34px; padding: 16px 14px 14px; color: #fff; box-shadow: 0 16px 40px rgba(18,34,63,.3); }
+  .hud { display: flex; justify-content: space-between; font-weight: 600; font-size: .95rem; margin-bottom: 10px; }
+  .hud span:last-child { background: rgba(255,255,255,.15); padding: 1px 12px; border-radius: 999px; }
+  .demo .card { transition: left .55s ease, top .55s ease, transform .3s ease, filter .3s ease; }
+  .demo.notrans .card { transition: none; }
+  .demo .card.sel { outline: 4px solid var(--gold); transform: scale(1.06); z-index: 2; }
+  .demo .card.win { filter: drop-shadow(0 0 10px #4ade80) drop-shadow(0 4px 6px rgba(0,0,0,.28)); }
+  .caption { min-height: 3.2em; text-align: center; font-weight: 600; margin-top: 12px; font-size: 1.02rem; }
+
   footer { background: var(--ink); color: #cfd8ee; padding: 40px 0; text-align: center; font-size: .95rem; }
   footer a { color: #fff; margin: 0 10px; }
-  footer p { margin-top: 12px; opacity: .8; }
+  footer p { margin-top: 12px; opacity: .9; }
 
-  @media (max-width: 720px) {
-    .game-box, .steps, .modes { grid-template-columns: 1fr; }
+  @media (max-width: 760px) {
+    .game-box, .how { grid-template-columns: 1fr; }
     nav a { margin-left: 12px; font-size: .9rem; }
   }
 </style>
 </head>
 <body>
+
+<!-- Hidden card drawings (built by the script at the bottom) -->
+<svg id="defs" width="0" height="0" style="position:absolute" aria-hidden="true"></svg>
 
 <header>
   <div class="wrap">
@@ -97,12 +110,7 @@
   <div class="logo">L<span class="dot">ı</span>LYA</div>
   <div class="studio">STUDIO</div>
   <p class="tag">Simple, funny and smart mobile games you can enjoy in a few minutes.</p>
-  <div class="cards">
-    <div class="card" style="--c:#e11d48">A<small>♥</small></div>
-    <div class="card" style="--c:#16a34a">J<small>♣</small></div>
-    <div class="card" style="--c:#1e293b">Q<small>♠</small></div>
-    <div class="card" style="--c:#ea580c">K<small>♦</small></div>
-  </div>
+  <div class="fan" id="fan"></div>
 </div>
 
 <section class="game" id="game">
@@ -116,12 +124,7 @@
            in the order A, J, Q, K. Beat the swap limit, or beat the computer.</p>
         <a class="btn" href="https://play.google.com/store/apps/details?id=com.lilyastudio.card_swap">Get it on Google Play</a>
       </div>
-      <div class="grid" aria-hidden="true">
-        <span style="--c:#e11d48">A♥</span><span style="--c:#e11d48">J♥</span><span style="--c:#e11d48">Q♥</span><span style="--c:#e11d48">K♥</span>
-        <span style="--c:#16a34a">A♣</span><span style="--c:#16a34a">J♣</span><span style="--c:#16a34a">Q♣</span><span style="--c:#16a34a">K♣</span>
-        <span style="--c:#1e293b">A♠</span><span style="--c:#1e293b">J♠</span><span style="--c:#1e293b">Q♠</span><span style="--c:#1e293b">K♠</span>
-        <span style="--c:#ea580c">A♦</span><span style="--c:#ea580c">J♦</span><span style="--c:#ea580c">Q♦</span><span style="--c:#ea580c">K♦</span>
-      </div>
+      <div class="board solved" id="solved" aria-hidden="true"></div>
     </div>
   </div>
 </section>
@@ -129,16 +132,23 @@
 <section id="how">
   <div class="wrap">
     <h2>How to play</h2>
-    <p class="sub">Easy to learn, hard to master.</p>
-    <div class="steps">
-      <div class="step"><b>1</b><h4>Pick a card</h4><p>Tap a card, then tap a card next to it to swap them.</p></div>
-      <div class="step"><b>2</b><h4>Line up a suit</h4><p>Put the A, J, Q and K of one suit in order in a row or column.</p></div>
-      <div class="step"><b>3</b><h4>Watch your swaps</h4><p>Your swaps are limited, so plan each move before you tap.</p></div>
-    </div>
-    <div class="modes">
-      <div class="mode"><h4>Easy</h4><p>Play on your own.</p></div>
-      <div class="mode"><h4>Medium</h4><p>Play against the computer, and block its suit.</p></div>
-      <div class="mode"><h4>Hard</h4><p>A tougher board and fewer swaps.</p></div>
+    <p class="sub">Easy to learn, hard to master. Watch a quick round:</p>
+    <div class="how">
+      <div>
+        <div class="step"><b>1</b><div><h4>Tap a card</h4><p>Then tap a card next to it. The two cards swap places.</p></div></div>
+        <div class="step"><b>2</b><div><h4>Line up a suit</h4><p>Put the A, J, Q and K of one suit in order, in a row or in a column.</p></div></div>
+        <div class="step"><b>3</b><div><h4>Watch your swaps</h4><p>Your swaps are limited, so plan every move.</p></div></div>
+        <div class="modes">
+          <div class="mode"><h4>Easy</h4><p>Play on your own with a swap limit.</p></div>
+          <div class="mode"><h4>Medium</h4><p>Pick a suit and play against the computer. Nobody can touch the other suit's cards. Diagonal swaps are allowed. 15 swaps each.</p></div>
+          <div class="mode"><h4>Hard</h4><p>Same duel, but only up, down, left and right swaps and 12 swaps each. If nobody finishes, it is a draw.</p></div>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="hud"><span>Easy</span><span id="swaps">Swaps left: 15</span></div>
+        <div class="board demo" id="demo"></div>
+        <div class="caption" id="caption">&nbsp;</div>
+      </div>
     </div>
   </div>
 </section>
@@ -147,7 +157,7 @@
   <div class="wrap">
     <strong>LiLYA STUDIO</strong>
     <p>Questions or feedback? Write to us at
-       <a href="mailto:YOUR_EMAIL@gmail.com">lilyastudio1@gmail.com</a></p>
+       <a href="mailto:YOUR_EMAIL@gmail.com">lilyastudio1@gmail.com<</a></p>
     <p>
       <a href="https://cardswap-game.github.io/cardswap-legal/privacy-policy.html">Privacy Policy</a>
       <a href="https://cardswap-game.github.io/cardswap-legal/terms.html">Terms &amp; Conditions</a>
@@ -156,5 +166,188 @@
   </div>
 </footer>
 
+<script>
+/* ===== Card drawing (same shapes and colours as the app) ===== */
+const INK='#2B2A5E', PAPER='#F7F0EA', YEL='#F6C945', YELD='#C99A1C',
+      FACE='#FFE2C6', MOUTH='#6B1E2E', TONGUE='#F28DA6', MOUS='#5A3A22';
+const PAL={
+  H:{pip:'#D8335F',hq:'#4B3F8F',hj:'#D8335F',hk:'#3A9BD3'},
+  D:{pip:'#E9663F',hq:'#3C4A9E',hj:'#7B4BA8',hk:'#D8335F'},
+  S:{pip:'#2F3270',hq:'#D8335F',hj:'#F2A33A',hk:'#7B4BA8'},
+  C:{pip:'#1C8F7C',hq:'#F2A33A',hj:'#3C4A9E',hk:'#D8335F'}
+};
+const sw=(w)=>w?` stroke="${INK}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`:'';
+const circ=(x,y,r,fill,w)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}"${sw(w)}/>`;
+const ell=(x,y,w,h,fill,s)=>`<ellipse cx="${x}" cy="${y}" rx="${w/2}" ry="${h/2}" fill="${fill}"${sw(s)}/>`;
+const poly=(pts,fill,w)=>`<polygon points="${pts}" fill="${fill}"${sw(w)}/>`;
+const path=(d,fill,w)=>`<path d="${d}" fill="${fill}"${sw(w)}/>`;
+const rect=(x,y,w,h,r,fill,s)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}"${sw(s)}/>`;
+
+/* scale a path written in 0..1 numbers into the box x,y,w,h */
+function sp(d,x,y,w,h){let i=0;return d.replace(/-?\d*\.?\d+/g,n=>(i++%2?y+h*n:x+w*n).toFixed(1));}
+function suit(s,x,y,w,h,color){
+  if(s==='H') return path(sp('M.5 .96C.10 .66 -.06 .38 .12 .16C.27 -.03 .46 .05 .5 .26C.54 .05 .73 -.03 .88 .16C1.06 .38 .90 .66 .5 .96Z',x,y,w,h),color);
+  if(s==='D') return path(sp('M.5 0L.88 .5L.5 1L.12 .5Z',x,y,w,h),color);
+  if(s==='S') return path(sp('M.5 0C.62 .24 1 .38 1 .62C1 .82 .74 .90 .56 .72L.66 1L.34 1L.44 .72C.26 .90 0 .82 0 .62C0 .38 .38 .24 .5 0Z',x,y,w,h),color);
+  const e=(cx,cy,r)=>`<ellipse cx="${x+w*cx}" cy="${y+h*cy}" rx="${w*r}" ry="${h*r}" fill="${color}"/>`;
+  return e(.5,.27,.25)+e(.26,.60,.25)+e(.74,.60,.25)+e(.5,.50,.16)+path(sp('M.45 .55L.34 1L.66 1L.55 .55Z',x,y,w,h),color);
+}
+
+const BODY='M12 100C12 80 28 70 50 70C72 70 88 80 88 100Z';
+let DOTS='';
+for(let row=0,yy=70;yy<110;yy+=10,row++){for(let xx=10+(row%2?5:0);xx<100;xx+=10)DOTS+=`<circle cx="${xx}" cy="${yy}" r="1.8"/>`;}
+const body=(c)=>path(BODY,c)+`<g clip-path="url(#bodyClip)" fill="#fff" fill-opacity=".6">${DOTS}</g>`+path(BODY,'none',1.3);
+const head=()=>circ(50,52,22,FACE,1.4);
+function features(lashes){
+  let s=`<circle cx="34" cy="61" r="4.5" fill="${TONGUE}" fill-opacity=".6"/><circle cx="66" cy="61" r="4.5" fill="${TONGUE}" fill-opacity=".6"/>`;
+  s+=circ(41,50,6.5,'#fff',1.2)+circ(59,50,6.5,'#fff',1.2)+circ(43.5,52,2.6,INK)+circ(56.5,48,2.6,INK);
+  if(lashes) s+=`<path d="M35 47L31 43M38 44L36 39M65 47L69 43M62 44L64 39" fill="none"${sw(1.4)}/>`;
+  return s;
+}
+function grin(o){
+  const m='M39 62Q50 80 61 62Z';
+  let s=path(m,MOUTH);
+  if(o.teeth) s+=rect(44,62,12,4.5,1.5,'#fff');
+  if(o.tongue) s+=ell(50,73,12,13,TONGUE,1.1);
+  s+=`<path d="${m}" fill="none" stroke="${o.lips||INK}" stroke-width="${o.lips?2.2:1.2}" stroke-linejoin="round"/>`;
+  return s;
+}
+function queen(p){
+  let s=circ(25,44,11,p.hq,1.3)+circ(75,44,11,p.hq,1.3)+body(p.pip);
+  for(const [x,y] of [[36,82],[43,85],[50,86],[57,85],[64,82]]) s+=circ(x,y,2.4,YEL,.8);
+  s+=head();
+  const a1=1.15*Math.PI,a2=1.85*Math.PI,r=22.5;
+  s+=path(`M50 52L${(50+r*Math.cos(a1)).toFixed(2)} ${(52+r*Math.sin(a1)).toFixed(2)}A22.5 22.5 0 0 1 ${(50+r*Math.cos(a2)).toFixed(2)} ${(52+r*Math.sin(a2)).toFixed(2)}Z`,p.hq);
+  s+=features(true)+grin({teeth:1,lips:'#D8335F'});
+  s+=circ(28,64,2.6,YEL,.9)+circ(72,64,2.6,YEL,.9);
+  s+=path('M75 34L65 28L65 40Z M75 34L85 28L85 40Z',YEL,1.2)+circ(75,34,2.6,YELD);
+  s+=poly('38,31 38,18 44,24 50,13 56,24 62,18 62,31',YEL,1.4)+circ(50,17,2.4,p.pip);
+  return s;
+}
+function jack(p){
+  let s=ell(29,56,8,15,p.hj,1.1)+ell(71,56,8,15,p.hj,1.1)+body(p.pip);
+  s+=poly('38,72 62,72 50,88',YEL,1.2)+head()+features(false)+grin({tongue:1});
+  s+=`<path d="M66 30Q84 24 86 6" fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round"/><path d="M66 30Q84 24 86 6" fill="none" stroke="${YEL}" stroke-width="4.5" stroke-linecap="round"/>`;
+  s+=path('M27 38C27 12 73 12 73 38Z',p.pip,1.4)+rect(23,36,54,7,3.5,p.pip,1.4)+circ(50,19,3,YEL,1);
+  return s;
+}
+function king(p){
+  let s=circ(27,56,9,p.hk,1.2)+circ(73,56,9,p.hk,1.2)+body(p.pip);
+  for(const [x,y] of [[34,77],[42,79],[50,80],[58,79],[66,77]]) s+=circ(x,y,5.2,'#fff',1);
+  s+=head()+features(false)+grin({teeth:1});
+  s+=path('M50 60C46 56 38 57 35 62C40 66 46 65 50 63C54 65 60 66 65 62C62 57 54 56 50 60Z',MOUS,1);
+  s+=poly('31,33 31,12 40,22 50,7 60,22 69,12 69,33',YEL,1.4)+`<rect x="31" y="27" width="38" height="6" fill="${YELD}"/>`;
+  for(const [x,y] of [[31,12],[50,7],[69,12]]) s+=circ(x,y,2.8,p.pip,.9);
+  return s;
+}
+function aceFace(st,cx,cy0,s){
+  const cy=cy0+s*({S:-.06,C:.03}[st]||0), er=s*.10, lw=Math.max(.8,s*.012);
+  let o='';
+  for(const g of [-1,1]){
+    const ex=cx+g*s*.15, ey=cy-s*.04;
+    o+=`<circle cx="${ex}" cy="${ey}" r="${er}" fill="#fff" stroke="${INK}" stroke-width="${lw}"/>`;
+    o+=circ((ex-g*er*.35).toFixed(1),(ey-g*er*.3).toFixed(1),(er*.45).toFixed(1),INK);
+  }
+  const m=`M${cx-s*.13} ${cy+s*.12}Q${cx} ${cy+s*.32} ${cx+s*.13} ${cy+s*.12}Z`;
+  o+=`<path d="${m}" fill="${MOUTH}"/>`;
+  o+=`<ellipse cx="${cx}" cy="${cy+s*.22}" rx="${s*.05}" ry="${s*.06}" fill="${TONGUE}"/>`;
+  o+=`<path d="${m}" fill="none" stroke="${INK}" stroke-width="${lw}" stroke-linejoin="round"/>`;
+  return o;
+}
+function cornerMark(rk,st,col){
+  return `<text x="88.4" y="138" text-anchor="middle" font-family="Fredoka,system-ui,sans-serif" font-weight="700" font-size="115.6" fill="${col}">${rk}</text>`+suit(st,47.6,176,81.6,81.6,col);
+}
+function cardSymbol(rk,st){
+  const p=PAL[st];
+  let s=`<rect x="2" y="2" width="676" height="996" rx="47" fill="${PAPER}" stroke="#E2D6CE" stroke-width="4"/>`;
+  s+=cornerMark(rk,st,p.pip)+`<g transform="translate(680 1000) rotate(180)">${cornerMark(rk,st,p.pip)}</g>`;
+  if(rk==='A'){
+    s+=suit(st,170,330,340,340,p.pip)+aceFace(st,340,500,340);
+  }else{
+    const half=rk==='Q'?queen(p):rk==='J'?jack(p):king(p);
+    s+=`<g transform="translate(136 92) scale(4.08)">${half}</g>`;
+    s+=`<g transform="translate(340 500) rotate(180) translate(-340 -500) translate(136 92) scale(4.08)">${half}</g>`;
+  }
+  return `<symbol id="c-${rk}${st}" viewBox="0 0 680 1000">${s}</symbol>`;
+}
+function buildDefs(){
+  let d=`<defs><clipPath id="bodyClip"><path d="${BODY}"/></clipPath></defs>`;
+  for(const st of 'HDSC') for(const rk of 'AJQK') d+=cardSymbol(rk,st);
+  document.getElementById('defs').innerHTML=d;
+}
+/*--DOM--*/
+buildDefs();
+const cardEl=(id)=>{
+  const el=document.createElement('div');
+  el.className='card';
+  el.innerHTML=`<svg viewBox="0 0 680 1000"><use href="#c-${id}"/></svg>`;
+  return el;
+};
+const place=(el,slot)=>{
+  el.style.left=((slot%4)*25+1.5)+'%';
+  el.style.top=(Math.floor(slot/4)*25+1.25)+'%';
+};
+
+/* top banner cards */
+const fan=document.getElementById('fan');
+['AH','JC','QD','KS'].forEach(id=>fan.appendChild(cardEl(id)));
+
+/* solved board in the game section: one suit per row */
+const solved=document.getElementById('solved');
+let n=0;
+for(const st of 'HCSD') for(const rk of 'AJQK'){const el=cardEl(rk+st);place(el,n++);solved.appendChild(el);}
+
+/* animated How to play */
+const demo=document.getElementById('demo');
+const caption=document.getElementById('caption');
+const swapsEl=document.getElementById('swaps');
+const start=['JH','AH','KH','QH','KC','AS','JD','QC','QS','KD','AC','JS','JC','QD','KS','AD'];
+const els={}, slotOf={};
+start.forEach(id=>{els[id]=cardEl(id);demo.appendChild(els[id]);});
+const idAt=(slot)=>start.find(id=>slotOf[id]===slot);
+function reset(){
+  demo.classList.add('notrans');
+  start.forEach((id,i)=>{slotOf[id]=i;place(els[id],i);els[id].className='card';});
+  void demo.offsetWidth;
+  demo.classList.remove('notrans');
+  swapsEl.textContent='Swaps left: 15';
+}
+function swap(a,b,left){
+  const x=idAt(a),y=idAt(b);
+  slotOf[x]=b;slotOf[y]=a;
+  place(els[x],b);place(els[y],a);
+  swapsEl.textContent='Swaps left: '+left;
+}
+const mark=(slot,on)=>els[idAt(slot)].classList.toggle('sel',on);
+const say=(t)=>{caption.textContent=t;};
+const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
+
+async function play(){
+  for(;;){
+    reset();
+    say('Tap a card…');           await sleep(1200); mark(0,true);
+    await sleep(900);
+    say('…then tap the card next to it'); mark(1,true);
+    await sleep(1100);
+    say('They swap places!');     mark(0,false);mark(1,false); swap(0,1,14);
+    await sleep(1500);
+    say('Now the next pair…');    mark(2,true);
+    await sleep(900); mark(3,true);
+    await sleep(900);
+    mark(2,false);mark(3,false); swap(2,3,13);
+    await sleep(1100);
+    say('Hearts in order: A, J, Q, K. You win!');
+    ['AH','JH','QH','KH'].forEach(id=>els[id].classList.add('win'));
+    await sleep(3200);
+  }
+}
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  reset();swap(0,1,14);swap(2,3,13);
+  say('Hearts in order: A, J, Q, K. You win!');
+  ['AH','JH','QH','KH'].forEach(id=>els[id].classList.add('win'));
+}else{
+  play();
+}
+</script>
 </body>
 </html>
